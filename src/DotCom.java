@@ -1,30 +1,36 @@
+import java.util.ArrayList;
+
 /**
  * Created by chuck on 2/3/14.
  */
 public class DotCom {
-    public static void main(String [] args){
-        int numOfGuesses = 0;
-        String userGuess = null;
+    private ArrayList<String> locationCells;
+    private String name;
 
-        GameHelper helper = new GameHelper();
+    public void setName(String s) {
+        name = s;
+    }
 
-        SimpleDotCom dot = new SimpleDotCom();
+    public void setLocationCells(ArrayList<String> location) {
+        this.locationCells = location;
+    }
 
-        int randomNum = (int) (Math.random() * 5);
-        int [] locations = {randomNum, randomNum+1, randomNum+2};
-        System.out.println(randomNum);
-        dot.setLocationCells(locations);
+    public String checkYourself(String userInput) {
 
-        boolean isAlive = true;
+        String result = "miss";
+        int index = locationCells.indexOf(userInput);
 
-        while(isAlive = true){
-            userGuess = helper.getUserInput("Enter a number");
-            String result = dot.checkYourself(userGuess);
-            numOfGuesses++;
-            if(result.equals("kill")){
-                isAlive = false;
-                System.out.println("You took" + numOfGuesses + "guesses");
+        if (index >= 0) {
+            locationCells.remove(index);
+
+
+            if (locationCells.isEmpty()) {
+                result = "kill";
+            } else {
+                result = "hit";
             }
         }
+
+        return result;
     }
 }
